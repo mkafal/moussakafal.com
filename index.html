@@ -18,13 +18,14 @@
       property="og:description"
       content="Grid modernization · AI-driven sensing · Industry 4.0. From pilot to industrial scale."
     />
-    <meta property="og:image" content="https://moussakafal.com/assets/profile-placeholder.svg" />
+    <meta property="og:image" content="https://moussakafal.com/assets/moussa-kafal.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Moussa Kafal — Industry Advisor" />
     <meta
       name="twitter:description"
       content="Grid modernization · AI-driven sensing · Industry 4.0. From pilot to industrial scale."
     />
+    <meta name="twitter:image" content="https://moussakafal.com/assets/moussa-kafal.jpg" />
 
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -540,6 +541,63 @@
         color: var(--fg-subtle);
       }
       .fact .v { font-size: 14.5px; color: var(--fg); text-align: right; }
+
+      /* About — portrait */
+      .about-grid { grid-template-columns: 1.3fr 0.9fr; }
+      .about-aside { display: flex; flex-direction: column; gap: 20px; }
+      .portrait {
+        position: relative;
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: linear-gradient(160deg, rgba(232,168,97,0.18), rgba(91,209,231,0.06) 60%, transparent);
+        padding: 1px;
+      }
+      .portrait::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, rgba(232,168,97,0.55), rgba(255,255,255,0.04) 35%, rgba(91,209,231,0.18) 100%);
+        z-index: 0;
+        border-radius: var(--radius);
+      }
+      .portrait .frame {
+        position: relative;
+        z-index: 1;
+        border-radius: calc(var(--radius) - 1px);
+        overflow: hidden;
+        background: var(--bg-1);
+        aspect-ratio: 4 / 5;
+      }
+      .portrait img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+        filter: saturate(0.95) contrast(1.02);
+        transition: transform 0.6s var(--ease);
+      }
+      .portrait:hover img { transform: scale(1.02); }
+      .portrait .glow {
+        position: absolute;
+        inset: -30%;
+        background: radial-gradient(circle at 30% 20%, rgba(232,168,97,0.25), transparent 60%);
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(20px);
+      }
+      .portrait-caption {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--fg-subtle);
+        padding: 0 4px;
+      }
+      .portrait-caption .tag { color: var(--copper); }
 
       /* Contact */
       .contact-card {
@@ -1155,28 +1213,40 @@
                 Outside of mandates, I write and speak on the convergence of grid, AI, and industrial infrastructure. If your problem looks like one of those, the contact section below is the fastest way in.
               </p>
             </div>
-            <aside class="facts" aria-label="Quick facts">
-              <div class="fact">
-                <span class="k">Role</span>
-                <span class="v">Global Grid Offer Director, Nexans</span>
+            <div class="about-aside">
+              <figure class="portrait" aria-label="Portrait of Moussa Kafal">
+                <div class="glow" aria-hidden="true"></div>
+                <div class="frame">
+                  <img src="assets/moussa-kafal.jpg" alt="Moussa Kafal" loading="lazy" />
+                </div>
+              </figure>
+              <div class="portrait-caption">
+                <span>Moussa Kafal</span>
+                <span class="tag">MK / 2026</span>
               </div>
-              <div class="fact">
-                <span class="k">Based</span>
-                <span class="v">&lt;City, Country&gt;</span>
-              </div>
-              <div class="fact">
-                <span class="k">Focus</span>
-                <span class="v">Grid · AI sensing · Industry 4.0</span>
-              </div>
-              <div class="fact">
-                <span class="k">Languages</span>
-                <span class="v">English · French · &lt;…&gt;</span>
-              </div>
-              <div class="fact">
-                <span class="k">CV</span>
-                <span class="v"><a href="#" style="color:var(--copper)">Download (PDF) →</a></span>
-              </div>
-            </aside>
+              <aside class="facts" aria-label="Quick facts">
+                <div class="fact">
+                  <span class="k">Role</span>
+                  <span class="v">Global Grid Offer Director, Nexans</span>
+                </div>
+                <div class="fact">
+                  <span class="k">Based</span>
+                  <span class="v">&lt;City, Country&gt;</span>
+                </div>
+                <div class="fact">
+                  <span class="k">Focus</span>
+                  <span class="v">Grid · AI sensing · Industry 4.0</span>
+                </div>
+                <div class="fact">
+                  <span class="k">Languages</span>
+                  <span class="v">English · French · &lt;…&gt;</span>
+                </div>
+                <div class="fact">
+                  <span class="k">CV</span>
+                  <span class="v"><a href="#" style="color:var(--copper)">Download (PDF) →</a></span>
+                </div>
+              </aside>
+            </div>
           </div>
         </div>
       </section>

@@ -3,105 +3,1334 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Moussa Kafal | Grid Reliability Engineer</title>
+    <meta name="theme-color" content="#0A0A0B" />
+    <title>Moussa Kafal — Industry Advisor · Grid · AI Sensing · Industry 4.0</title>
     <meta
       name="description"
-      content="Moussa Kafal's personal website focused on Grid Reliability, Smart Grids, and Industry 4.0 projects."
+      content="Moussa Kafal advises energy and industrial leaders on turning grid and industrial assets into intelligent, data-driven systems — from AI sensing pilots to industrialized, multi-market deployment."
     />
-    <meta property="og:title" content="Moussa Kafal | Grid Reliability Engineer" />
-    <meta
-      property="og:description"
-      content="Explore projects and experience in Grid Reliability, Smart Grids, and Industry 4.0."
-    />
+    <link rel="canonical" href="https://moussakafal.com/" />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://moussakafal.com/" />
+    <meta property="og:title" content="Moussa Kafal — Industry Advisor" />
+    <meta
+      property="og:description"
+      content="Grid modernization · AI-driven sensing · Industry 4.0. From pilot to industrial scale."
+    />
     <meta property="og:image" content="https://moussakafal.com/assets/profile-placeholder.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Moussa Kafal — Industry Advisor" />
+    <meta
+      name="twitter:description"
+      content="Grid modernization · AI-driven sensing · Industry 4.0. From pilot to industrial scale."
+    />
+
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =========================================================
+         Design tokens
+         ========================================================= */
+      :root {
+        --bg: #0a0a0b;
+        --bg-1: #101013;
+        --bg-2: #16161b;
+        --line: rgba(255, 255, 255, 0.06);
+        --line-strong: rgba(255, 255, 255, 0.12);
+        --fg: #f4f4f6;
+        --fg-muted: #a1a1aa;
+        --fg-subtle: #6b6b75;
+        --copper: #e8a861;
+        --copper-soft: rgba(232, 168, 97, 0.14);
+        --copper-line: rgba(232, 168, 97, 0.35);
+        --cyan: #5bd1e7;
+        --cyan-soft: rgba(91, 209, 231, 0.12);
+        --radius-sm: 6px;
+        --radius: 14px;
+        --radius-lg: 22px;
+        --max: 1200px;
+        --pad: clamp(20px, 4vw, 40px);
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Reset */
+      *,
+      *::before,
+      *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        font-size: 17px;
+        line-height: 1.55;
+        font-feature-settings: "ss01", "cv11";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      img, svg { display: block; max-width: 100%; }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+      ::selection { background: var(--copper); color: #111; }
+
+      /* Typography */
+      h1, h2, h3, h4 { margin: 0; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+      h1 { font-size: clamp(2.6rem, 6.2vw, 5.2rem); font-weight: 800; letter-spacing: -0.035em; }
+      h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); letter-spacing: -0.025em; }
+      h3 { font-size: 1.25rem; font-weight: 600; }
+      p { margin: 0; }
+      .lead {
+        font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+        color: var(--fg-muted);
+        line-height: 1.55;
+        max-width: 62ch;
+      }
+      .eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 11.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--copper);
+        margin-bottom: 22px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 22px;
+        height: 1px;
+        background: var(--copper);
+        display: inline-block;
+      }
+
+      /* Layout */
+      .container {
+        width: 100%;
+        max-width: var(--max);
+        margin: 0 auto;
+        padding-left: var(--pad);
+        padding-right: var(--pad);
+      }
+      section {
+        padding: clamp(72px, 10vw, 140px) 0;
+        position: relative;
+      }
+      section + section { border-top: 1px solid var(--line); }
+
+      .section-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: clamp(40px, 6vw, 72px);
+      }
+      .section-head .lead { max-width: 48ch; }
+      .section-label { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+      .section-label .num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--fg-subtle);
+      }
+      .section-label .label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-muted);
+      }
+
+      /* Navigation */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: saturate(140%) blur(14px);
+        -webkit-backdrop-filter: saturate(140%) blur(14px);
+        background: rgba(10, 10, 11, 0.72);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+      }
+      .nav.is-scrolled {
+        border-bottom-color: var(--line);
+        background: rgba(10, 10, 11, 0.85);
+      }
+      .nav-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .brand .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--copper);
+        box-shadow: 0 0 14px var(--copper);
+      }
+      .nav-links { display: flex; align-items: center; gap: 28px; }
+      .nav-links a {
+        font-size: 14px;
+        color: var(--fg-muted);
+        position: relative;
+        padding: 6px 0;
+        transition: color 0.2s var(--ease);
+      }
+      .nav-links a:hover, .nav-links a.is-active { color: var(--fg); }
+      .nav-links a.is-active::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: -2px;
+        height: 1px;
+        background: var(--copper);
+      }
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 16px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        font-size: 13.5px;
+        font-weight: 500;
+        transition: all 0.2s var(--ease);
+      }
+      .nav-cta:hover { border-color: var(--copper); color: var(--fg); background: var(--copper-soft); }
+      .menu-toggle {
+        display: none;
+        width: 40px; height: 40px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+      }
+      .menu-toggle span,
+      .menu-toggle span::before,
+      .menu-toggle span::after {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 1.5px;
+        background: var(--fg);
+        position: relative;
+        transition: transform 0.3s var(--ease);
+      }
+      .menu-toggle span::before { position: absolute; top: -5px; }
+      .menu-toggle span::after { position: absolute; top: 5px; }
+      .nav.is-open .menu-toggle span { background: transparent; }
+      .nav.is-open .menu-toggle span::before { transform: translateY(5px) rotate(45deg); }
+      .nav.is-open .menu-toggle span::after { transform: translateY(-5px) rotate(-45deg); }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 22px;
+        border-radius: 999px;
+        font-size: 14.5px;
+        font-weight: 500;
+        letter-spacing: -0.005em;
+        transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+        white-space: nowrap;
+      }
+      .btn-primary { background: var(--copper); color: #1a0e00; border: 1px solid var(--copper); font-weight: 600; }
+      .btn-primary:hover { transform: translateY(-1px); background: #f1b876; border-color: #f1b876; }
+      .btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--line-strong); }
+      .btn-ghost:hover { border-color: var(--fg-muted); background: rgba(255, 255, 255, 0.04); }
+      .btn .arrow { display: inline-block; transition: transform 0.2s var(--ease); }
+      .btn:hover .arrow { transform: translateX(3px); }
+
+      /* Hero */
+      .hero {
+        padding-top: clamp(70px, 10vw, 130px);
+        padding-bottom: clamp(80px, 12vw, 160px);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+        -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+      }
+      .hero-bg svg { width: 100%; height: 100%; }
+      .hero-content { position: relative; z-index: 1; max-width: 980px; }
+      .hero h1 { margin-bottom: 28px; }
+      .hero h1 .accent {
+        background: linear-gradient(180deg, var(--copper) 0%, #cf8d44 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero .lead {
+        font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+        max-width: 64ch;
+        color: var(--fg-muted);
+      }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
+      .hero-meta {
+        margin-top: 64px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 36px 56px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+      .hero-meta .item { display: flex; flex-direction: column; gap: 6px; }
+      .hero-meta .k {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--fg-subtle);
+      }
+      .hero-meta .v { font-size: 15px; color: var(--fg); }
+
+      /* Animated grid network */
+      @keyframes pulse-node {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 1; }
+      }
+      @keyframes travel {
+        0% { stroke-dashoffset: 600; opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { stroke-dashoffset: 0; opacity: 0; }
+      }
+      .grid-line { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; fill: none; }
+      .grid-line-active {
+        stroke: var(--copper);
+        stroke-width: 1.2;
+        fill: none;
+        stroke-dasharray: 8 600;
+        animation: travel 6s linear infinite;
+      }
+      .grid-line-active.cyan { stroke: var(--cyan); }
+      .grid-node { fill: rgba(255, 255, 255, 0.55); }
+      .grid-node.copper { fill: var(--copper); animation: pulse-node 4s ease-in-out infinite; }
+      .grid-node.cyan { fill: var(--cyan); animation: pulse-node 5s ease-in-out infinite; animation-delay: 1.5s; }
+
+      /* Thesis */
+      .thesis-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0));
+      }
+      .bet {
+        padding: clamp(28px, 3vw, 44px);
+        border-right: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-height: 320px;
+      }
+      .bet:last-child { border-right: none; }
+      .bet-num {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        color: var(--copper);
+      }
+      .bet h3 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      .bet p { color: var(--fg-muted); font-size: 15px; line-height: 1.6; }
+
+      /* Expertise */
+      .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .pillar {
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--bg-1);
+        transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), background 0.25s var(--ease);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-height: 200px;
+      }
+      .pillar:hover {
+        border-color: var(--copper-line);
+        transform: translateY(-2px);
+        background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      }
+      .pillar .icon {
+        width: 36px; height: 36px;
+        display: grid; place-items: center;
+        border-radius: 8px;
+        background: var(--copper-soft);
+        color: var(--copper);
+      }
+      .pillar h3 { font-size: 1.05rem; font-weight: 600; }
+      .pillar p { color: var(--fg-muted); font-size: 14.5px; line-height: 1.55; }
+
+      /* Selected work */
+      .work-list {
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid var(--line);
+      }
+      .work-item {
+        padding: 32px 0;
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        grid-template-columns: 80px 1fr 1.4fr 220px;
+        gap: 32px;
+        align-items: start;
+        transition: padding-left 0.3s var(--ease);
+        position: relative;
+      }
+      .work-item::before {
+        content: "";
+        position: absolute;
+        left: -24px; top: 50%;
+        width: 12px; height: 1px;
+        background: var(--copper);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s var(--ease);
+      }
+      .work-item:hover { padding-left: 12px; }
+      .work-item:hover::before { transform: scaleX(1); }
+      .work-item .idx {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--fg-subtle);
+        padding-top: 4px;
+      }
+      .work-item h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
+      .work-item .tags {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--fg-subtle);
+      }
+      .work-item .desc { color: var(--fg-muted); font-size: 15px; line-height: 1.6; }
+      .work-item .outcome {
+        font-size: 13px;
+        color: var(--fg-muted);
+        line-height: 1.5;
+        padding-left: 18px;
+        border-left: 1px solid var(--copper-line);
+      }
+      .work-item .outcome strong {
+        display: block;
+        color: var(--copper);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+
+      /* Insights */
+      .insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .article {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--bg-1);
+        transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+        min-height: 240px;
+      }
+      .article:hover { border-color: var(--copper-line); transform: translateY(-2px); }
+      .article .meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-subtle);
+        display: flex;
+        gap: 12px;
+      }
+      .article h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.3; flex: 1; }
+      .article .read { font-size: 13px; color: var(--copper); display: inline-flex; align-items: center; gap: 6px; }
+
+      /* Speaking */
+      .speaking-list { display: flex; flex-direction: column; }
+      .talk {
+        padding: 22px 0;
+        border-top: 1px solid var(--line);
+        display: grid;
+        grid-template-columns: 100px 1fr 220px 100px;
+        gap: 24px;
+        align-items: center;
+      }
+      .talk:last-child { border-bottom: 1px solid var(--line); }
+      .talk .year { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--fg-muted); }
+      .talk .title { font-size: 16px; color: var(--fg); font-weight: 500; }
+      .talk .venue { font-size: 14px; color: var(--fg-muted); }
+      .talk .kind {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        text-align: right;
+      }
+
+      /* About */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: clamp(40px, 6vw, 80px);
+        align-items: start;
+      }
+      .about-grid p {
+        color: var(--fg-muted);
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .about-grid p:first-of-type { font-size: 17px; color: var(--fg); font-weight: 500; }
+      .facts {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--bg-1);
+        overflow: hidden;
+      }
+      .fact {
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+      }
+      .fact:last-child { border-bottom: none; }
+      .fact .k {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--fg-subtle);
+      }
+      .fact .v { font-size: 14.5px; color: var(--fg); text-align: right; }
+
+      /* Contact */
+      .contact-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: clamp(36px, 5vw, 64px);
+        background:
+          radial-gradient(circle at 0% 0%, rgba(232,168,97,0.08), transparent 50%),
+          radial-gradient(circle at 100% 100%, rgba(91,209,231,0.06), transparent 50%),
+          var(--bg-1);
+        position: relative;
+        overflow: hidden;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: clamp(32px, 5vw, 64px);
+        align-items: center;
+      }
+      .contact-card h2 { margin-bottom: 18px; }
+      .contact-card .lead { margin-bottom: 28px; }
+      .contact-actions { display: flex; flex-direction: column; gap: 10px; }
+      .contact-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(0, 0, 0, 0.3);
+        transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+      }
+      .contact-row:hover { border-color: var(--copper-line); }
+      .contact-row .icon {
+        width: 32px; height: 32px;
+        display: grid; place-items: center;
+        border-radius: 8px;
+        background: var(--copper-soft);
+        color: var(--copper);
+        flex-shrink: 0;
+      }
+      .contact-row .label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--fg-subtle);
+      }
+      .contact-row .value { font-size: 15px; color: var(--fg); font-weight: 500; }
+      .contact-row .copy {
+        margin-left: auto;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-muted);
+        padding: 6px 10px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        transition: all 0.2s var(--ease);
+      }
+      .contact-row .copy:hover { color: var(--fg); border-color: var(--copper); }
+      .contact-row .copy.is-copied { color: var(--copper); border-color: var(--copper); }
+
+      .availability { display: flex; flex-direction: column; gap: 14px; }
+      .availability .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(46, 196, 122, 0.1);
+        color: #2ec47a;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        align-self: flex-start;
+      }
+      .availability .pill .dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: #2ec47a;
+        box-shadow: 0 0 10px #2ec47a;
+      }
+      .availability h3 { font-size: 1rem; font-weight: 600; }
+      .availability ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+      .availability li {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        font-size: 14.5px;
+        color: var(--fg-muted);
+      }
+      .availability li::before {
+        content: "→";
+        color: var(--copper);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* Footer */
+      footer.site-footer { padding: 40px 0 56px; border-top: 1px solid var(--line); }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-row p { font-size: 13px; color: var(--fg-subtle); }
+      .footer-links { display: flex; gap: 22px; }
+      .footer-links a { font-size: 13px; color: var(--fg-muted); transition: color 0.2s var(--ease); }
+      .footer-links a:hover { color: var(--fg); }
+
+      /* Reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      }
+      .reveal.is-visible { opacity: 1; transform: translateY(0); }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; }
+        .grid-line-active, .grid-node.copper, .grid-node.cyan { animation: none; }
+        html { scroll-behavior: auto; }
+      }
+
+      /* Skip & focus */
+      .skip {
+        position: absolute;
+        left: -1000px; top: 8px;
+        background: var(--copper);
+        color: #1a0e00;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        z-index: 1000;
+      }
+      .skip:focus { left: 12px; }
+      a:focus-visible, button:focus-visible {
+        outline: 2px solid var(--copper);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      /* Responsive */
+      @media (max-width: 960px) {
+        .thesis-grid { grid-template-columns: 1fr; }
+        .bet { border-right: none; border-bottom: 1px solid var(--line); min-height: auto; }
+        .bet:last-child { border-bottom: none; }
+        .expertise-grid, .insights-grid { grid-template-columns: repeat(2, 1fr); }
+        .work-item { grid-template-columns: 50px 1fr; gap: 16px; }
+        .work-item .desc { grid-column: 2; }
+        .work-item .outcome {
+          grid-column: 2;
+          padding-left: 0;
+          border-left: none;
+          border-top: 1px solid var(--copper-line);
+          padding-top: 14px;
+          margin-top: 4px;
+        }
+        .talk { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+        .talk .kind { text-align: left; }
+        .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 700px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 64px; left: 0; right: 0;
+          background: rgba(10, 10, 11, 0.98);
+          backdrop-filter: blur(14px);
+          flex-direction: column;
+          align-items: stretch;
+          padding: 16px var(--pad) 24px;
+          gap: 4px;
+          border-bottom: 1px solid var(--line);
+        }
+        .nav-links a { padding: 12px 0; font-size: 16px; color: var(--fg); }
+        .nav.is-open .nav-links { display: flex; }
+        .menu-toggle { display: inline-flex; }
+        .nav-cta { display: none; }
+        .expertise-grid, .insights-grid { grid-template-columns: 1fr; }
+      }
+    </style>
   </head>
   <body>
-    <header class="site-header">
-      <div class="container nav-wrap">
-        <a class="brand" href="index.html">Moussa Kafal</a>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
-          Menu
-        </button>
-        <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="work.html">Work</a>
-          <a href="contact.html">Contact</a>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- NAV -->
+    <header class="nav" id="nav">
+      <div class="container nav-row">
+        <a class="brand" href="#home" aria-label="Moussa Kafal — Home">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Moussa Kafal</span>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Primary">
+          <a href="#thesis" data-target="thesis">Thesis</a>
+          <a href="#expertise" data-target="expertise">Expertise</a>
+          <a href="#work" data-target="work">Work</a>
+          <a href="#insights" data-target="insights">Insights</a>
+          <a href="#about" data-target="about">About</a>
+          <a class="nav-cta" href="#contact">Start a conversation →</a>
         </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span>
+        </button>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="container hero-grid">
-          <div>
-            <p class="eyebrow">Energy Systems & Digital Transformation</p>
-            <h1>Moussa Kafal</h1>
-            <p class="positioning">Grid Reliability / Smart Grids / Industry 4.0</p>
+    <main id="main">
+      <!-- HERO -->
+      <section class="hero" id="home">
+        <div class="hero-bg" aria-hidden="true">
+          <svg viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path class="grid-line" d="M 80 120 L 280 200 L 480 140 L 680 220 L 880 160 L 1080 240 L 1280 180" />
+              <path class="grid-line" d="M 100 300 L 300 280 L 500 320 L 700 290 L 900 330 L 1100 300 L 1300 340" />
+              <path class="grid-line" d="M 120 480 L 320 400 L 520 460 L 720 380 L 920 440 L 1120 360 L 1320 420" />
+              <path class="grid-line" d="M 280 200 L 300 280 L 320 400" />
+              <path class="grid-line" d="M 480 140 L 500 320 L 520 460" />
+              <path class="grid-line" d="M 680 220 L 700 290 L 720 380" />
+              <path class="grid-line" d="M 880 160 L 900 330 L 920 440" />
+              <path class="grid-line" d="M 1080 240 L 1100 300 L 1120 360" />
+              <path class="grid-line" d="M 80 120 L 100 300 L 120 480" />
+              <path class="grid-line" d="M 1280 180 L 1300 340 L 1320 420" />
+            </g>
+            <g>
+              <path class="grid-line-active" d="M 80 120 L 280 200 L 480 140 L 680 220 L 880 160 L 1080 240 L 1280 180" style="animation-delay: 0s" />
+              <path class="grid-line-active cyan" d="M 120 480 L 320 400 L 520 460 L 720 380 L 920 440 L 1120 360 L 1320 420" style="animation-delay: 2s" />
+              <path class="grid-line-active" d="M 100 300 L 300 280 L 500 320 L 700 290 L 900 330 L 1100 300 L 1300 340" style="animation-delay: 4s" />
+            </g>
+            <g>
+              <circle class="grid-node" cx="80" cy="120" r="2.5" />
+              <circle class="grid-node copper" cx="280" cy="200" r="3.5" />
+              <circle class="grid-node" cx="480" cy="140" r="2.5" />
+              <circle class="grid-node cyan" cx="680" cy="220" r="3.5" />
+              <circle class="grid-node" cx="880" cy="160" r="2.5" />
+              <circle class="grid-node copper" cx="1080" cy="240" r="3.5" />
+              <circle class="grid-node" cx="1280" cy="180" r="2.5" />
+              <circle class="grid-node" cx="100" cy="300" r="2" />
+              <circle class="grid-node" cx="300" cy="280" r="2" />
+              <circle class="grid-node cyan" cx="500" cy="320" r="3" />
+              <circle class="grid-node" cx="700" cy="290" r="2" />
+              <circle class="grid-node copper" cx="900" cy="330" r="3" />
+              <circle class="grid-node" cx="1100" cy="300" r="2" />
+              <circle class="grid-node" cx="1300" cy="340" r="2" />
+              <circle class="grid-node" cx="120" cy="480" r="2.5" />
+              <circle class="grid-node copper" cx="320" cy="400" r="3.5" />
+              <circle class="grid-node" cx="520" cy="460" r="2.5" />
+              <circle class="grid-node cyan" cx="720" cy="380" r="3.5" />
+              <circle class="grid-node" cx="920" cy="440" r="2.5" />
+              <circle class="grid-node copper" cx="1120" cy="360" r="3.5" />
+              <circle class="grid-node" cx="1320" cy="420" r="2.5" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="container">
+          <div class="hero-content">
+            <span class="eyebrow">Industry advisor · Grid × AI × Industry 4.0</span>
+            <h1>
+              Turning grid and industrial assets into <span class="accent">intelligent, data-driven systems.</span>
+            </h1>
             <p class="lead">
-              I design practical, data-driven solutions that improve infrastructure resilience
-              and operational performance across modern energy systems.
+              I help energy and industrial leaders move from concept and pilots to scaled, multi-market deployment — where physical infrastructure, AI sensing, and platform economics actually meet.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="work.html">View Work</a>
-              <a class="btn btn-secondary" href="contact.html">Get in Touch</a>
+              <a class="btn btn-primary" href="#contact">
+                Start a conversation
+                <span class="arrow">→</span>
+              </a>
+              <a class="btn btn-ghost" href="#work">
+                See selected work
+              </a>
             </div>
-          </div>
-          <div class="profile-card">
-            <img src="assets/profile-placeholder.svg" alt="Placeholder profile photo" />
+            <div class="hero-meta">
+              <div class="item">
+                <span class="k">Current</span>
+                <span class="v">Global Grid Offer Director, Nexans</span>
+              </div>
+              <div class="item">
+                <span class="k">Focus</span>
+                <span class="v">Electrification · Grid reliability · AI sensing</span>
+              </div>
+              <div class="item">
+                <span class="k">Available for</span>
+                <span class="v">Advisory · Speaking · Selective consulting</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section">
+      <!-- THESIS -->
+      <section id="thesis">
         <div class="container">
-          <div class="section-head">
-            <h2>Featured Projects</h2>
-            <a href="work.html" class="text-link">See all projects</a>
+          <div class="section-head reveal">
+            <div>
+              <div class="section-label">
+                <span class="num">01</span>
+                <span class="label">Thesis</span>
+              </div>
+              <h2>Three bets shaping the next decade of grid and industrial infrastructure.</h2>
+            </div>
+            <p class="lead">
+              Convictions earned from inside the industry — not consultant slideware. They guide every advisory engagement I take.
+            </p>
           </div>
-          <div class="card-grid">
-            <article class="card">
-              <h3>Predictive Grid Fault Monitoring</h3>
+
+          <div class="thesis-grid reveal">
+            <article class="bet">
+              <span class="bet-num">BET / 01</span>
+              <h3>The grid is becoming a platform.</h3>
               <p>
-                Built an anomaly detection workflow to identify early warning signals and reduce
-                unplanned downtime in distribution assets.
+                The next decade of grid value comes from data layers and software business models — not just copper and steel. The companies that win will operate their assets like product platforms: telemetry-rich, API-addressable, monetizable beyond kilowatt-hours.
               </p>
             </article>
-            <article class="card">
-              <h3>Substation Performance Dashboard</h3>
+            <article class="bet">
+              <span class="bet-num">BET / 02</span>
+              <h3>AI sensing is the missing instrumentation layer.</h3>
               <p>
-                Unified operational and maintenance data into a single dashboard for faster
-                decision-making and reliability tracking.
+                Most grid and industrial decisions still run on partial, lagging data. AI-driven sensing closes that gap — not as a feature, but as the foundation for predictive operations, dynamic ratings, and asset-as-a-service models.
               </p>
             </article>
-            <article class="card">
-              <h3>Industry 4.0 Readiness Framework</h3>
+            <article class="bet">
+              <span class="bet-num">BET / 03</span>
+              <h3>Pilot ≠ scaled deployment.</h3>
               <p>
-                Developed a practical assessment model to prioritize digitalization investments in
-                industrial energy operations.
+                Industrial pilots are easy to celebrate and hard to industrialize. The real moat is the operating model — engineering, supply chain, commercial structure — that turns one working pilot into ten thousand connected sites.
               </p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERTISE -->
+      <section id="expertise">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-label">
+                <span class="num">02</span>
+                <span class="label">Expertise</span>
+              </div>
+              <h2>Where I add the most leverage.</h2>
+            </div>
+            <p class="lead">
+              Six domains where engineering depth, commercial rigor, and platform thinking compound. I work end-to-end across them — not as separate workstreams.
+            </p>
+          </div>
+
+          <div class="expertise-grid reveal">
+            <article class="pillar">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 12h4l3-9 4 18 3-9h4" />
+                </svg>
+              </div>
+              <h3>Grid modernization & reliability</h3>
+              <p>Resilience strategy, reliability-centered planning, and asset performance engineering for transmission and distribution operators.</p>
+            </article>
+            <article class="pillar">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3" />
+                </svg>
+              </div>
+              <h3>AI-driven sensing & monitoring</h3>
+              <p>Distributed sensing systems, anomaly detection, and predictive analytics for cables, substations, and connected industrial assets.</p>
+            </article>
+            <article class="pillar">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" />
+                </svg>
+              </div>
+              <h3>Industry 4.0 deployment</h3>
+              <p>Connected-asset roadmaps, IT/OT convergence, and digital-thread architectures for industrial operators with multi-site footprints.</p>
+            </article>
+            <article class="pillar">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 17l6-6 4 4 8-8" /><path d="M14 7h7v7" />
+                </svg>
+              </div>
+              <h3>Pilot-to-scale industrialization</h3>
+              <p>Operating-model design, engineering productization, and commercial frameworks that turn working pilots into industrial deployments.</p>
+            </article>
+            <article class="pillar">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19V5l8 6 8-6v14" /><path d="M4 19h16" />
+                </svg>
+              </div>
+              <h3>Platform & data architecture</h3>
+              <p>Reference architectures for telemetry platforms, sensor data lakes, and the API surface that turns assets into addressable products.</p>
+            </article>
+            <article class="pillar">
+              <div class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" />
+                </svg>
+              </div>
+              <h3>Commercial models for hardware × software</h3>
+              <p>Pricing, packaging, and unit-economics design for sensor-as-a-service, monitoring-as-a-service, and outcome-based industrial offers.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK -->
+      <section id="work">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-label">
+                <span class="num">03</span>
+                <span class="label">Selected work</span>
+              </div>
+              <h2>From concept to industrial scale.</h2>
+            </div>
+            <p class="lead">
+              Anonymized examples from offer leadership, advisory mandates, and program work. Numbers pending public disclosure — replace with cleared figures.
+            </p>
+          </div>
+
+          <div class="work-list reveal">
+            <article class="work-item">
+              <span class="idx">01</span>
+              <div>
+                <h3>Grid telemetry platform — cable asset monitoring</h3>
+                <p class="tags">Tier-1 utility · Multi-market · 2023–2026</p>
+              </div>
+              <p class="desc">
+                Took an early-stage AI sensing pilot and built it into a multi-utility commercial offer. Defined the value architecture, pricing model, and deployment playbook now used as the reference for the global product line.
+              </p>
+              <div class="outcome">
+                <strong>Outcome</strong>
+                Pilot → product line · &lt;TBD&gt; km of cable under monitoring · &lt;TBD&gt; markets live
+              </div>
+            </article>
+
+            <article class="work-item">
+              <span class="idx">02</span>
+              <div>
+                <h3>Industrial digital spine — manufacturing operations</h3>
+                <p class="tags">Multi-site industrial operator · IT / OT</p>
+              </div>
+              <p class="desc">
+                Designed a connected-asset roadmap for a multi-site industrial operator. Aligned IT/OT, data, and capex governance to make Industry 4.0 investment defensible at the CFO level — not just the CTO level.
+              </p>
+              <div class="outcome">
+                <strong>Outcome</strong>
+                &lt;TBD&gt;% reduction in unplanned downtime · &lt;TBD&gt;-year payback
+              </div>
+            </article>
+
+            <article class="work-item">
+              <span class="idx">03</span>
+              <div>
+                <h3>Sensor-as-a-service — commercial blueprint</h3>
+                <p class="tags">Recurring revenue model · Hardware × software</p>
+              </div>
+              <p class="desc">
+                Built the commercial blueprint for shifting from one-time hardware sales to a recurring sensing-and-insights subscription. Sized addressable market, designed pricing tiers, modeled unit economics through to gross margin at scale.
+              </p>
+              <div class="outcome">
+                <strong>Outcome</strong>
+                New recurring-revenue line · Multi-year ARR ramp plan
+              </div>
+            </article>
+
+            <article class="work-item">
+              <span class="idx">04</span>
+              <div>
+                <h3>Strategic bid — multinational grid tender</h3>
+                <p class="tags">Tier-1 utility · Cable systems · Digital services</p>
+              </div>
+              <p class="desc">
+                Led the offer architecture for a tier-1 utility tender combining cable systems, monitoring, and digital services. Coordinated across product, engineering, supply chain, and partner ecosystems to deliver a coherent commercial proposal.
+              </p>
+              <div class="outcome">
+                <strong>Outcome</strong>
+                Mandate awarded · &lt;TBD&gt;€ contract value
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSIGHTS -->
+      <section id="insights">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-label">
+                <span class="num">04</span>
+                <span class="label">Insights</span>
+              </div>
+              <h2>Notes on the convergence of grid, AI, and industrial systems.</h2>
+            </div>
+            <p class="lead">
+              Short essays for executives, product leaders, and industrial clients. New pieces every few weeks — replace links once published.
+            </p>
+          </div>
+
+          <div class="insights-grid reveal">
+            <a class="article" href="#" aria-label="Read: Grid modernization is a software problem disguised as a hardware problem">
+              <div class="meta">
+                <span>Essay</span>
+                <span>·</span>
+                <span>5 min read</span>
+              </div>
+              <h3>Grid modernization is a software problem disguised as a hardware problem.</h3>
+              <span class="read">Read note <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="article" href="#" aria-label="Read: The hidden economics of pilot-to-scale in industrial AI">
+              <div class="meta">
+                <span>Essay</span>
+                <span>·</span>
+                <span>7 min read</span>
+              </div>
+              <h3>The hidden economics of pilot-to-scale in industrial AI.</h3>
+              <span class="read">Read note <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="article" href="#" aria-label="Read: Asset-as-a-service: what the grid can learn from SaaS">
+              <div class="meta">
+                <span>Essay</span>
+                <span>·</span>
+                <span>6 min read</span>
+              </div>
+              <h3>Asset-as-a-service: what the grid can learn from SaaS.</h3>
+              <span class="read">Read note <span aria-hidden="true">→</span></span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPEAKING -->
+      <section id="speaking">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-label">
+                <span class="num">05</span>
+                <span class="label">Speaking & media</span>
+              </div>
+              <h2>Recent and upcoming engagements.</h2>
+            </div>
+            <p class="lead">
+              Keynotes, panels, and conversations on grid modernization, AI sensing, and the operating models behind industrial AI. Replace placeholders with confirmed venues.
+            </p>
+          </div>
+
+          <div class="speaking-list reveal">
+            <article class="talk">
+              <span class="year">2026</span>
+              <span class="title">Scaling AI sensing across critical infrastructure</span>
+              <span class="venue">&lt;Conference name&gt; · &lt;City&gt;</span>
+              <span class="kind">Panel</span>
+            </article>
+            <article class="talk">
+              <span class="year">2025</span>
+              <span class="title">The grid as a platform</span>
+              <span class="venue">&lt;Industry forum&gt; · &lt;City&gt;</span>
+              <span class="kind">Keynote</span>
+            </article>
+            <article class="talk">
+              <span class="year">2025</span>
+              <span class="title">From pilot to industrial deployment</span>
+              <span class="venue">&lt;Podcast / publication&gt;</span>
+              <span class="kind">Interview</span>
+            </article>
+            <article class="talk">
+              <span class="year">2024</span>
+              <span class="title">Operating models for sensor-as-a-service</span>
+              <span class="venue">&lt;Industrial AI summit&gt; · &lt;City&gt;</span>
+              <span class="kind">Talk</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <div class="section-label">
+                <span class="num">06</span>
+                <span class="label">About</span>
+              </div>
+              <h2>Engineer by training. Operator by experience. Systems thinker by default.</h2>
+            </div>
+          </div>
+
+          <div class="about-grid reveal">
+            <div>
+              <p>
+                I'm Global Grid Offer Director at Nexans, where I lead offer strategy at the intersection of electrification, grid reliability, Industry 4.0, and AI-driven sensing.
+              </p>
+              <p>
+                My career has been built around one question: how do you take a real engineering breakthrough — a sensor, an algorithm, a new architecture — and turn it into something the industry can actually deploy at scale? That has meant working across roles in engineering, product, and offer leadership, with the same end-to-end frame: physical assets, monitoring technologies, data platforms, and the commercial models that hold them together.
+              </p>
+              <p>
+                I advise selectively, on engagements where the question is genuinely about scaling — not about decks. Most of my work sits at the boundary between an emerging technology and the operating model required to industrialize it.
+              </p>
+              <p>
+                Outside of mandates, I write and speak on the convergence of grid, AI, and industrial infrastructure. If your problem looks like one of those, the contact section below is the fastest way in.
+              </p>
+            </div>
+            <aside class="facts" aria-label="Quick facts">
+              <div class="fact">
+                <span class="k">Role</span>
+                <span class="v">Global Grid Offer Director, Nexans</span>
+              </div>
+              <div class="fact">
+                <span class="k">Based</span>
+                <span class="v">&lt;City, Country&gt;</span>
+              </div>
+              <div class="fact">
+                <span class="k">Focus</span>
+                <span class="v">Grid · AI sensing · Industry 4.0</span>
+              </div>
+              <div class="fact">
+                <span class="k">Languages</span>
+                <span class="v">English · French · &lt;…&gt;</span>
+              </div>
+              <div class="fact">
+                <span class="k">CV</span>
+                <span class="v"><a href="#" style="color:var(--copper)">Download (PDF) →</a></span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="container">
+          <div class="contact-card reveal">
+            <div class="contact-grid">
+              <div>
+                <div class="section-label">
+                  <span class="num">07</span>
+                  <span class="label">Contact</span>
+                </div>
+                <h2>Let's talk about what you're trying to scale.</h2>
+                <p class="lead">
+                  Send a brief context — the problem, the stage you're at, the timeline. I respond personally to every inquiry that fits.
+                </p>
+
+                <div class="contact-actions">
+                  <div class="contact-row">
+                    <div class="icon" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <path d="M3 7l9 6 9-6" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="label">Email</div>
+                      <a class="value" href="mailto:moussa.kafal@gmail.com?subject=Advisory%20inquiry">moussa.kafal@gmail.com</a>
+                    </div>
+                    <button class="copy" id="copy-email" type="button" aria-label="Copy email address">Copy</button>
+                  </div>
+
+                  <a class="contact-row" href="https://www.linkedin.com/in/moussakafal" target="_blank" rel="noopener noreferrer">
+                    <div class="icon" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.6v1.7h.05c.5-.95 1.7-1.95 3.5-1.95C20.7 8.75 22 11 22 14.05V21h-4v-6.4c0-1.5-.03-3.4-2.07-3.4-2.07 0-2.4 1.6-2.4 3.3V21h-4z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="label">LinkedIn</div>
+                      <span class="value">linkedin.com/in/moussakafal</span>
+                    </div>
+                    <span class="copy" aria-hidden="true">Open ↗</span>
+                  </a>
+                </div>
+              </div>
+
+              <aside class="availability">
+                <span class="pill"><span class="dot"></span>Open to selective engagements</span>
+                <h3>Best fits right now</h3>
+                <ul>
+                  <li>Strategic advisory on grid modernization or AI sensing programs</li>
+                  <li>Pilot-to-scale operating-model design</li>
+                  <li>Board / advisory roles in industrial × digital ventures</li>
+                  <li>Keynotes and executive briefings</li>
+                </ul>
+              </aside>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
-      <div class="container footer-wrap">
-        <p>&copy; <span id="year"></span> Moussa Kafal</p>
+      <div class="container footer-row">
+        <p>&copy; <span id="year"></span> Moussa Kafal. All views are personal and do not represent any employer.</p>
         <div class="footer-links">
-          <a href="mailto:hello@example.com">Email</a>
-          <a href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noreferrer">
-            LinkedIn
-          </a>
+          <a href="mailto:moussa.kafal@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/moussakafal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="#home">Top ↑</a>
         </div>
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Sticky nav state
+      const nav = document.getElementById("nav");
+      const onScroll = () => {
+        if (window.scrollY > 8) nav.classList.add("is-scrolled");
+        else nav.classList.remove("is-scrolled");
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      // Mobile menu toggle
+      const toggle = document.getElementById("menu-toggle");
+      toggle.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+      document.querySelectorAll("#nav-links a").forEach((a) => {
+        a.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      // Scroll spy
+      const sections = ["thesis", "expertise", "work", "insights", "about"]
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      const navLinks = document.querySelectorAll(".nav-links a[data-target]");
+      const spy = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              navLinks.forEach((link) => {
+                link.classList.toggle("is-active", link.dataset.target === id);
+              });
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      );
+      sections.forEach((s) => spy.observe(s));
+
+      // Reveal on scroll
+      const reveals = document.querySelectorAll(".reveal");
+      const revealer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+      );
+      reveals.forEach((r) => revealer.observe(r));
+
+      // Copy email
+      const copyBtn = document.getElementById("copy-email");
+      if (copyBtn && navigator.clipboard) {
+        copyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText("moussa.kafal@gmail.com");
+            const original = copyBtn.textContent;
+            copyBtn.textContent = "Copied";
+            copyBtn.classList.add("is-copied");
+            setTimeout(() => {
+              copyBtn.textContent = original;
+              copyBtn.classList.remove("is-copied");
+            }, 1800);
+          } catch (e) {}
+        });
+      }
+    </script>
   </body>
 </html>

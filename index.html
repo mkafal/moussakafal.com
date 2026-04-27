@@ -279,18 +279,93 @@
       .hero {
         padding-top: clamp(70px, 10vw, 130px);
         padding-bottom: clamp(80px, 12vw, 160px);
+        min-height: clamp(640px, 92vh, 880px);
         position: relative;
         overflow: hidden;
+        display: flex;
+        align-items: center;
       }
       .hero-bg {
+        --mx: 0;
+        --my: 0;
         position: absolute;
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
-        -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+        background-size: cover;
+        background-position: center 45%;
+        background-repeat: no-repeat;
+        filter: contrast(1.04) saturate(0.92) brightness(0.92);
+        transform: scale(1.06) translate3d(calc(var(--mx) * -14px), calc(var(--my) * -10px), 0);
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity: 0;
+        animation: hero-fade-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
       }
-      .hero-bg svg { width: 100%; height: 100%; }
+      @keyframes hero-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      /* Fallback gradient if image is missing */
+      .hero-bg.is-fallback {
+        background:
+          radial-gradient(circle at 25% 30%, rgba(232,168,97,0.15), transparent 55%),
+          radial-gradient(circle at 75% 70%, rgba(91,209,231,0.1), transparent 55%),
+          var(--bg-1);
+      }
+      /* Overlay layer — gradient mask for text readability */
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          /* Left side: deep mask for typography */
+          linear-gradient(90deg,
+            rgba(12, 15, 23, 0.94) 0%,
+            rgba(12, 15, 23, 0.78) 28%,
+            rgba(12, 15, 23, 0.42) 58%,
+            rgba(12, 15, 23, 0.15) 82%,
+            transparent 100%),
+          /* Top: nav contrast */
+          linear-gradient(180deg,
+            rgba(12, 15, 23, 0.55) 0%,
+            transparent 16%),
+          /* Bottom: section transition */
+          linear-gradient(180deg,
+            transparent 50%,
+            rgba(12, 15, 23, 0.55) 82%,
+            var(--bg) 100%);
+      }
+      /* Subtle scroll cue */
+      .hero-scroll {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        pointer-events: none;
+        opacity: 0;
+        animation: hero-fade-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) 1.4s forwards;
+      }
+      .hero-scroll .line {
+        width: 1px;
+        height: 28px;
+        background: linear-gradient(180deg, transparent, var(--copper));
+        animation: scroll-pulse 2.4s ease-in-out infinite;
+      }
+      @keyframes scroll-pulse {
+        0%, 100% { transform: scaleY(0.6); transform-origin: top; opacity: 0.4; }
+        50% { transform: scaleY(1); opacity: 1; }
+      }
       .hero-content { position: relative; z-index: 1; max-width: 980px; }
       .hero h1 { margin-bottom: 28px; }
       .hero h1 .accent {
@@ -322,30 +397,6 @@
         color: var(--fg-subtle);
       }
       .hero-meta .v { font-size: 15px; color: var(--fg); }
-
-      /* Animated grid network */
-      @keyframes pulse-node {
-        0%, 100% { opacity: 0.35; }
-        50% { opacity: 1; }
-      }
-      @keyframes travel {
-        0% { stroke-dashoffset: 600; opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { stroke-dashoffset: 0; opacity: 0; }
-      }
-      .grid-line { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; fill: none; }
-      .grid-line-active {
-        stroke: var(--copper);
-        stroke-width: 1.2;
-        fill: none;
-        stroke-dasharray: 8 600;
-        animation: travel 6s linear infinite;
-      }
-      .grid-line-active.cyan { stroke: var(--cyan); }
-      .grid-node { fill: rgba(255, 255, 255, 0.55); }
-      .grid-node.copper { fill: var(--copper); animation: pulse-node 4s ease-in-out infinite; }
-      .grid-node.cyan { fill: var(--cyan); animation: pulse-node 5s ease-in-out infinite; animation-delay: 1.5s; }
 
       /* Convergence band */
       .convergence {
@@ -431,19 +482,6 @@
         color: var(--fg-muted);
         line-height: 1.55;
       }
-
-      /* Hero atmospheric silhouettes */
-      .hero-silhouettes {
-        position: absolute;
-        left: 0; right: 0; bottom: 0;
-        height: 180px;
-        pointer-events: none;
-        z-index: 0;
-        opacity: 0.55;
-        mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,1) 100%);
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,1) 100%);
-      }
-      .hero-silhouettes svg { width: 100%; height: 100%; }
 
       /* Thesis */
       .thesis-grid {
@@ -916,7 +954,9 @@
       .reveal.is-visible { opacity: 1; transform: translateY(0); }
       @media (prefers-reduced-motion: reduce) {
         .reveal { opacity: 1; transform: none; }
-        .grid-line-active, .grid-node.copper, .grid-node.cyan { animation: none; }
+        .hero-bg { animation: none; opacity: 1; }
+        .hero-scroll { animation: none; opacity: 1; }
+        .hero-scroll .line { animation: none; }
         html { scroll-behavior: auto; }
       }
 
@@ -1009,117 +1049,8 @@
     <main id="main">
       <!-- HERO -->
       <section class="hero" id="home">
-        <div class="hero-bg" aria-hidden="true">
-          <svg viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <path class="grid-line" d="M 80 120 L 280 200 L 480 140 L 680 220 L 880 160 L 1080 240 L 1280 180" />
-              <path class="grid-line" d="M 100 300 L 300 280 L 500 320 L 700 290 L 900 330 L 1100 300 L 1300 340" />
-              <path class="grid-line" d="M 120 480 L 320 400 L 520 460 L 720 380 L 920 440 L 1120 360 L 1320 420" />
-              <path class="grid-line" d="M 280 200 L 300 280 L 320 400" />
-              <path class="grid-line" d="M 480 140 L 500 320 L 520 460" />
-              <path class="grid-line" d="M 680 220 L 700 290 L 720 380" />
-              <path class="grid-line" d="M 880 160 L 900 330 L 920 440" />
-              <path class="grid-line" d="M 1080 240 L 1100 300 L 1120 360" />
-              <path class="grid-line" d="M 80 120 L 100 300 L 120 480" />
-              <path class="grid-line" d="M 1280 180 L 1300 340 L 1320 420" />
-            </g>
-            <g>
-              <path class="grid-line-active" d="M 80 120 L 280 200 L 480 140 L 680 220 L 880 160 L 1080 240 L 1280 180" style="animation-delay: 0s" />
-              <path class="grid-line-active cyan" d="M 120 480 L 320 400 L 520 460 L 720 380 L 920 440 L 1120 360 L 1320 420" style="animation-delay: 2s" />
-              <path class="grid-line-active" d="M 100 300 L 300 280 L 500 320 L 700 290 L 900 330 L 1100 300 L 1300 340" style="animation-delay: 4s" />
-            </g>
-            <g>
-              <circle class="grid-node" cx="80" cy="120" r="2.5" />
-              <circle class="grid-node copper" cx="280" cy="200" r="3.5" />
-              <circle class="grid-node" cx="480" cy="140" r="2.5" />
-              <circle class="grid-node cyan" cx="680" cy="220" r="3.5" />
-              <circle class="grid-node" cx="880" cy="160" r="2.5" />
-              <circle class="grid-node copper" cx="1080" cy="240" r="3.5" />
-              <circle class="grid-node" cx="1280" cy="180" r="2.5" />
-              <circle class="grid-node" cx="100" cy="300" r="2" />
-              <circle class="grid-node" cx="300" cy="280" r="2" />
-              <circle class="grid-node cyan" cx="500" cy="320" r="3" />
-              <circle class="grid-node" cx="700" cy="290" r="2" />
-              <circle class="grid-node copper" cx="900" cy="330" r="3" />
-              <circle class="grid-node" cx="1100" cy="300" r="2" />
-              <circle class="grid-node" cx="1300" cy="340" r="2" />
-              <circle class="grid-node" cx="120" cy="480" r="2.5" />
-              <circle class="grid-node copper" cx="320" cy="400" r="3.5" />
-              <circle class="grid-node" cx="520" cy="460" r="2.5" />
-              <circle class="grid-node cyan" cx="720" cy="380" r="3.5" />
-              <circle class="grid-node" cx="920" cy="440" r="2.5" />
-              <circle class="grid-node copper" cx="1120" cy="360" r="3.5" />
-              <circle class="grid-node" cx="1320" cy="420" r="2.5" />
-            </g>
-          </svg>
-        </div>
-
-        <!-- Atmospheric infrastructure silhouettes -->
-        <div class="hero-silhouettes" aria-hidden="true">
-          <svg viewBox="0 0 1400 180" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-            <!-- Wind turbine (left) -->
-            <g stroke="rgba(232,168,97,0.55)" stroke-width="1" fill="none" stroke-linecap="round">
-              <line x1="180" y1="180" x2="180" y2="60" />
-              <circle cx="180" cy="60" r="2.5" fill="rgba(232,168,97,0.7)" stroke="none" />
-              <line x1="180" y1="60" x2="180" y2="20" />
-              <line x1="180" y1="60" x2="218" y2="78" />
-              <line x1="180" y1="60" x2="142" y2="78" />
-            </g>
-            <!-- Solar panels (left-center) -->
-            <g stroke="rgba(91,209,231,0.45)" stroke-width="1" fill="none">
-              <path d="M 280 180 L 290 140 L 360 140 L 350 180 Z" />
-              <line x1="285" y1="160" x2="355" y2="160" />
-              <line x1="305" y1="140" x2="295" y2="180" />
-              <line x1="325" y1="140" x2="320" y2="180" />
-              <line x1="345" y1="140" x2="345" y2="180" />
-            </g>
-            <!-- Substation outline (center) -->
-            <g stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none">
-              <rect x="500" y="120" width="180" height="60" />
-              <line x1="520" y1="120" x2="520" y2="100" />
-              <line x1="560" y1="120" x2="560" y2="95" />
-              <line x1="600" y1="120" x2="600" y2="100" />
-              <line x1="640" y1="120" x2="640" y2="95" />
-              <line x1="660" y1="120" x2="660" y2="100" />
-              <circle cx="520" cy="98" r="2" fill="rgba(232,168,97,0.6)" stroke="none" />
-              <circle cx="600" cy="98" r="2" fill="rgba(232,168,97,0.6)" stroke="none" />
-              <circle cx="660" cy="98" r="2" fill="rgba(91,209,231,0.6)" stroke="none" />
-            </g>
-            <!-- Transmission tower (right of substation) -->
-            <g stroke="rgba(232,168,97,0.5)" stroke-width="1" fill="none" stroke-linecap="round">
-              <path d="M 820 180 L 850 60 L 880 180" />
-              <path d="M 820 180 L 880 180" />
-              <line x1="836" y1="120" x2="864" y2="120" />
-              <line x1="844" y1="90" x2="856" y2="90" />
-              <line x1="828" y1="150" x2="872" y2="150" />
-              <!-- Power lines -->
-              <path d="M 850 60 Q 1000 90 1140 60" stroke-dasharray="2 4" />
-              <path d="M 850 90 Q 1000 120 1140 90" stroke-dasharray="2 4" />
-            </g>
-            <!-- Second transmission tower (far right) -->
-            <g stroke="rgba(232,168,97,0.5)" stroke-width="1" fill="none" stroke-linecap="round">
-              <path d="M 1110 180 L 1140 60 L 1170 180" />
-              <path d="M 1110 180 L 1170 180" />
-              <line x1="1126" y1="120" x2="1154" y2="120" />
-              <line x1="1134" y1="90" x2="1146" y2="90" />
-              <line x1="1118" y1="150" x2="1162" y2="150" />
-            </g>
-            <!-- Connected nodes (factory/IoT, far right) -->
-            <g stroke="rgba(91,209,231,0.5)" stroke-width="1" fill="none">
-              <rect x="1240" y="135" width="22" height="22" rx="2" />
-              <rect x="1280" y="135" width="22" height="22" rx="2" />
-              <rect x="1240" y="165" width="22" height="15" rx="2" />
-              <rect x="1280" y="165" width="22" height="15" rx="2" />
-              <line x1="1262" y1="146" x2="1280" y2="146" />
-              <line x1="1251" y1="157" x2="1251" y2="165" />
-              <line x1="1291" y1="157" x2="1291" y2="165" />
-              <circle cx="1251" cy="146" r="1.5" fill="rgba(91,209,231,0.7)" stroke="none" />
-              <circle cx="1291" cy="146" r="1.5" fill="rgba(91,209,231,0.7)" stroke="none" />
-            </g>
-            <!-- Ground line -->
-            <line x1="0" y1="180" x2="1400" y2="180" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
-          </svg>
-        </div>
+        <div class="hero-bg" id="hero-bg" style="background-image: url('assets/img/hero.jpg')" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
 
         <div class="container">
           <div class="hero-content">
@@ -1154,6 +1085,11 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="hero-scroll" aria-hidden="true">
+          <span>Scroll to explore</span>
+          <span class="line"></span>
         </div>
       </section>
 
@@ -1777,18 +1713,44 @@
       );
       reveals.forEach((r) => revealer.observe(r));
 
-      // Atmospheric image fallback — apply gradient if image fails to load
-      document.querySelectorAll(".atmosphere-img").forEach((el) => {
+      // Image fallback — apply gradient if any background image fails to load
+      function setupImageFallback(el, fallbackTarget) {
         const bg = el.style.backgroundImage;
         const match = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
-        if (!match) { el.parentElement.classList.add("is-fallback"); return; }
+        if (!match) { (fallbackTarget || el).classList.add("is-fallback"); return; }
         const probe = new Image();
         probe.onerror = () => {
           el.style.backgroundImage = "none";
-          el.parentElement.classList.add("is-fallback");
+          (fallbackTarget || el).classList.add("is-fallback");
         };
         probe.src = match[1];
-      });
+      }
+      document.querySelectorAll(".atmosphere-img").forEach((el) =>
+        setupImageFallback(el, el.parentElement)
+      );
+      const heroBg = document.getElementById("hero-bg");
+      if (heroBg) setupImageFallback(heroBg);
+
+      // Hero mouse-parallax — image shifts subtly with cursor position
+      const hero = document.querySelector(".hero");
+      if (hero && heroBg && window.matchMedia("(min-width: 700px)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        let raf;
+        hero.addEventListener("mousemove", (e) => {
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;   // -0.5 .. 0.5
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            heroBg.style.setProperty("--mx", x.toFixed(3));
+            heroBg.style.setProperty("--my", y.toFixed(3));
+            raf = null;
+          });
+        });
+        hero.addEventListener("mouseleave", () => {
+          heroBg.style.setProperty("--mx", "0");
+          heroBg.style.setProperty("--my", "0");
+        });
+      }
 
       // Copy email
       const copyBtn = document.getElementById("copy-email");

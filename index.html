@@ -577,6 +577,81 @@
       .article h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.3; flex: 1; }
       .article .read { font-size: 13px; color: var(--copper); display: inline-flex; align-items: center; gap: 6px; }
 
+      /* Atmospheric full-bleed band */
+      .atmosphere {
+        position: relative;
+        width: 100%;
+        height: clamp(380px, 58vh, 640px);
+        padding: 0;
+        margin: 0;
+        background: var(--bg);
+        overflow: hidden;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .atmosphere-img {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: saturate(0.92) contrast(1.04) brightness(0.85);
+        transform: scale(1.02);
+        transition: transform 8s var(--ease);
+      }
+      .atmosphere:hover .atmosphere-img { transform: scale(1.06); }
+      .atmosphere::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, var(--bg) 0%, transparent 14%, transparent 78%, var(--bg) 100%),
+          linear-gradient(90deg, rgba(10,10,11,0.45) 0%, transparent 30%);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .atmosphere.is-fallback .atmosphere-img {
+        background:
+          radial-gradient(circle at 30% 60%, rgba(232,168,97,0.18), transparent 60%),
+          radial-gradient(circle at 70% 30%, rgba(91,209,231,0.12), transparent 55%),
+          var(--bg-1);
+      }
+      .atmosphere-caption {
+        position: absolute;
+        left: var(--pad);
+        bottom: clamp(28px, 5vh, 48px);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 480px;
+      }
+      .atmosphere-caption .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .atmosphere-caption .label .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--copper);
+        box-shadow: 0 0 12px var(--copper);
+      }
+      .atmosphere-caption .quote {
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
+        font-weight: 500;
+        line-height: 1.3;
+        letter-spacing: -0.015em;
+        color: rgba(255, 255, 255, 0.92);
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+      }
+
       /* Speaking */
       .speaking-list { display: flex; flex-direction: column; }
       .talk {
@@ -1184,6 +1259,15 @@
         </div>
       </section>
 
+      <!-- ATMOSPHERIC BAND -->
+      <section class="atmosphere" aria-label="Renewables in operation">
+        <div class="atmosphere-img" style="background-image: url('assets/img/landscape.jpg')"></div>
+        <div class="atmosphere-caption">
+          <span class="label"><span class="dot"></span>Renewables · variable, distributed, fast</span>
+          <span class="quote">The grid that's coming is built outdoors — and managed in software.</span>
+        </div>
+      </section>
+
       <!-- THESIS -->
       <section id="thesis">
         <div class="container">
@@ -1677,6 +1761,19 @@
         { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
       );
       reveals.forEach((r) => revealer.observe(r));
+
+      // Atmospheric image fallback — apply gradient if image fails to load
+      document.querySelectorAll(".atmosphere-img").forEach((el) => {
+        const bg = el.style.backgroundImage;
+        const match = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+        if (!match) { el.parentElement.classList.add("is-fallback"); return; }
+        const probe = new Image();
+        probe.onerror = () => {
+          el.style.backgroundImage = "none";
+          el.parentElement.classList.add("is-fallback");
+        };
+        probe.src = match[1];
+      });
 
       // Copy email
       const copyBtn = document.getElementById("copy-email");

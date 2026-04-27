@@ -542,62 +542,69 @@
       }
       .fact .v { font-size: 14.5px; color: var(--fg); text-align: right; }
 
-      /* About — portrait */
+      /* About — portrait (circle, face-focused) */
       .about-grid { grid-template-columns: 1.3fr 0.9fr; }
-      .about-aside { display: flex; flex-direction: column; gap: 20px; }
+      .about-aside { display: flex; flex-direction: column; gap: 22px; align-items: center; }
+      .portrait-wrap {
+        position: relative;
+        width: clamp(220px, 80%, 300px);
+        aspect-ratio: 1 / 1;
+        margin: 8px auto 0;
+      }
+      .portrait-wrap .glow {
+        position: absolute;
+        inset: -25%;
+        background:
+          radial-gradient(circle at 30% 25%, rgba(232,168,97,0.32), transparent 55%),
+          radial-gradient(circle at 70% 75%, rgba(91,209,231,0.18), transparent 55%);
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(28px);
+      }
       .portrait {
         position: relative;
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: linear-gradient(160deg, rgba(232,168,97,0.18), rgba(91,209,231,0.06) 60%, transparent);
-        padding: 1px;
-      }
-      .portrait::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(160deg, rgba(232,168,97,0.55), rgba(255,255,255,0.04) 35%, rgba(91,209,231,0.18) 100%);
-        z-index: 0;
-        border-radius: var(--radius);
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        margin: 0;
+        background: linear-gradient(160deg, rgba(232,168,97,0.65) 0%, rgba(255,255,255,0.06) 40%, rgba(91,209,231,0.35) 100%);
+        padding: 1.5px;
+        box-shadow:
+          0 1px 0 rgba(255,255,255,0.04) inset,
+          0 30px 60px -30px rgba(0,0,0,0.7);
       }
       .portrait .frame {
         position: relative;
-        z-index: 1;
-        border-radius: calc(var(--radius) - 1px);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
         overflow: hidden;
         background: var(--bg-1);
-        aspect-ratio: 4 / 5;
       }
       .portrait img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center top;
+        object-position: 50% 22%;
         display: block;
         filter: saturate(0.95) contrast(1.02);
         transition: transform 0.6s var(--ease);
       }
-      .portrait:hover img { transform: scale(1.02); }
-      .portrait .glow {
-        position: absolute;
-        inset: -30%;
-        background: radial-gradient(circle at 30% 20%, rgba(232,168,97,0.25), transparent 60%);
-        z-index: 0;
-        pointer-events: none;
-        filter: blur(20px);
-      }
+      .portrait:hover img { transform: scale(1.03); }
       .portrait-caption {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: clamp(220px, 80%, 300px);
         font-family: "JetBrains Mono", monospace;
         font-size: 11px;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--fg-subtle);
-        padding: 0 4px;
       }
       .portrait-caption .tag { color: var(--copper); }
+      .about-aside .facts { width: 100%; }
 
       /* Contact */
       .contact-card {
@@ -1214,12 +1221,14 @@
               </p>
             </div>
             <div class="about-aside">
-              <figure class="portrait" aria-label="Portrait of Moussa Kafal">
+              <div class="portrait-wrap">
                 <div class="glow" aria-hidden="true"></div>
-                <div class="frame">
-                  <img src="assets/moussa-kafal.jpg" alt="Moussa Kafal" loading="lazy" />
-                </div>
-              </figure>
+                <figure class="portrait" aria-label="Portrait of Moussa Kafal">
+                  <div class="frame">
+                    <img src="assets/moussa-kafal.jpg" alt="Moussa Kafal" loading="lazy" />
+                  </div>
+                </figure>
+              </div>
               <div class="portrait-caption">
                 <span>Moussa Kafal</span>
                 <span class="tag">MK / 2026</span>

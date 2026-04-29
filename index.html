@@ -28,6 +28,25 @@
     <meta name="twitter:image" content="https://moussakafal.com/assets/moussa-kafal.jpg" />
 
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+    <!-- Google Analytics 4 — loaded only after explicit consent (GDPR-compliant) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      window.MK_GA_ID = "G-CCZRD9R3Z0";
+      (function () {
+        try {
+          if (localStorage.getItem("mk_consent") === "granted") {
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://www.googletagmanager.com/gtag/js?id=" + window.MK_GA_ID;
+            document.head.appendChild(s);
+            gtag("js", new Date());
+            gtag("config", window.MK_GA_ID, { anonymize_ip: true });
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -958,6 +977,64 @@
       .footer-links a { font-size: 13px; color: var(--fg-muted); transition: color 0.2s var(--ease); }
       .footer-links a:hover { color: var(--fg); }
 
+      /* Cookie consent banner */
+      .consent-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px var(--pad);
+        background: rgba(19, 23, 34, 0.96);
+        backdrop-filter: saturate(140%) blur(16px);
+        -webkit-backdrop-filter: saturate(140%) blur(16px);
+        border-top: 1px solid var(--copper-line);
+        transform: translateY(100%);
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .consent-banner.is-visible { transform: translateY(0); }
+      .consent-banner .row {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .consent-banner p {
+        flex: 1;
+        font-size: 13.5px;
+        color: var(--fg-muted);
+        line-height: 1.55;
+        min-width: 280px;
+      }
+      .consent-banner p strong { color: var(--fg); font-weight: 500; }
+      .consent-banner p a { color: var(--copper); text-decoration: underline; text-underline-offset: 2px; }
+      .consent-banner .actions { display: flex; gap: 10px; }
+      .consent-banner button {
+        padding: 9px 18px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid;
+        transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+        white-space: nowrap;
+      }
+      .consent-banner .accept {
+        background: var(--copper);
+        color: #1a0e00;
+        border-color: var(--copper);
+        font-weight: 600;
+      }
+      .consent-banner .accept:hover { background: #f1b876; border-color: #f1b876; transform: translateY(-1px); }
+      .consent-banner .decline {
+        background: transparent;
+        color: var(--fg-muted);
+        border-color: var(--line-strong);
+      }
+      .consent-banner .decline:hover { color: var(--fg); border-color: var(--fg-muted); }
+
       /* Reveal */
       .reveal {
         opacity: 0;
@@ -1691,10 +1768,22 @@
           <a href="mailto:moussa.kafal@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/moussakafal" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="https://wa.me/33673554790" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a href="#" id="cookie-settings">Cookie settings</a>
           <a href="#home">Top ↑</a>
         </div>
       </div>
     </footer>
+
+    <!-- Cookie consent banner -->
+    <div class="consent-banner" id="consent-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
+      <div class="row">
+        <p><strong>This site uses Google Analytics</strong> to measure traffic and improve content. No advertising or cross-site tracking — declining doesn't affect site functionality.</p>
+        <div class="actions">
+          <button class="decline" id="consent-decline" type="button">Decline</button>
+          <button class="accept" id="consent-accept" type="button">Accept</button>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Footer year
@@ -1795,6 +1884,80 @@
           heroBg.style.setProperty("--my", "0");
         });
       }
+
+      // ==================================================================
+      // Cookie consent + GA4 loading
+      // ==================================================================
+      (function () {
+        const banner = document.getElementById("consent-banner");
+        const acceptBtn = document.getElementById("consent-accept");
+        const declineBtn = document.getElementById("consent-decline");
+        const settingsLink = document.getElementById("cookie-settings");
+
+        function loadGA() {
+          if (window.__mkGaLoaded) return;
+          window.__mkGaLoaded = true;
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + window.MK_GA_ID;
+          document.head.appendChild(s);
+          gtag("js", new Date());
+          gtag("config", window.MK_GA_ID, { anonymize_ip: true });
+        }
+
+        function setConsent(value) {
+          try { localStorage.setItem("mk_consent", value); } catch (e) {}
+          banner.classList.remove("is-visible");
+          if (value === "granted") loadGA();
+        }
+
+        let stored = null;
+        try { stored = localStorage.getItem("mk_consent"); } catch (e) {}
+        if (!stored) {
+          setTimeout(() => banner.classList.add("is-visible"), 700);
+        }
+
+        if (acceptBtn) acceptBtn.addEventListener("click", () => setConsent("granted"));
+        if (declineBtn) declineBtn.addEventListener("click", () => setConsent("denied"));
+
+        if (settingsLink) {
+          settingsLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            try { localStorage.removeItem("mk_consent"); } catch (_e) {}
+            banner.classList.add("is-visible");
+          });
+        }
+      })();
+
+      // ==================================================================
+      // Conversion event tracking — Calendly is the priority signal
+      // ==================================================================
+      function trackEvent(name, params) {
+        if (typeof gtag === "function" && window.__mkGaLoaded) {
+          gtag("event", name, params || {});
+        }
+      }
+      document.querySelectorAll('a[href*="calendly.com"]').forEach((link) => {
+        link.addEventListener("click", () => {
+          trackEvent("book_call_click", {
+            event_category: "engagement",
+            event_label: "calendly_30min",
+            location: link.closest(".hero") ? "hero" :
+                      link.closest(".nav") ? "nav" :
+                      link.closest("#contact") ? "contact" :
+                      link.closest("footer") ? "footer" : "other"
+          });
+        });
+      });
+      document.querySelectorAll('a[href*="wa.me"]').forEach((link) => {
+        link.addEventListener("click", () => trackEvent("whatsapp_click", { event_category: "engagement" }));
+      });
+      document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+        link.addEventListener("click", () => trackEvent("email_click", { event_category: "engagement" }));
+      });
+      document.querySelectorAll('a[href*="linkedin.com"]').forEach((link) => {
+        link.addEventListener("click", () => trackEvent("linkedin_click", { event_category: "engagement" }));
+      });
 
       // Copy email
       const copyBtn = document.getElementById("copy-email");
